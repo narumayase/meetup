@@ -1,0 +1,312 @@
+swagger: "2.0"
+info:
+  description: "Endpoints"
+  version: "1.0.0-SNAPSHOT"
+  title: "Meetup Santander"
+  contact:
+    email: "ayelenbaglietto@gmail.com"
+basePath: "/"
+tags:
+  - name: "meetup"
+  - name: "user"
+  - name: "weather"
+schemes:
+  - "http"
+paths:
+  /meetup:
+    get:
+      tags:
+        - meetup
+      summary: "Obtiene el listado de las meetups."
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "header"
+          name: "authorization"
+          type: 'string'
+          description: "Token de sesión."
+      responses:
+        200:
+          description: "La llamada fue resuelta correctamente."
+          schema:
+            $ref: "#/definitions/Meetup"
+        401:
+          description: "Token incorrecto o inexistente."
+        403:
+          description: "Usuario con rol no permitido. Roles admitidos en este endpoint: admin, user"
+    post:
+      tags:
+        - meetup
+      summary: "Crea una meetup."
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "header"
+          name: "authorization"
+          type: 'string'
+          description: "Token de sesión."
+        - in: "body"
+          name: "meetup"
+          schema:
+            $ref: "#/definitions/Meetup"
+          description: "Datos necesarios: description, date, guests (solo los usernames)."
+      responses:
+        200:
+          description: "La llamada fue resuelta correctamente."
+        400:
+          description: "El formato de la fecha es incorrecto, la fecha es del pasado ó la fecha supera los 15 días. Formato de la fecha: yyyy-MM-dd HH:mm:ss. Ejemplo: 2020-12-10 22:00:11"
+        401:
+          description: "Token incorrecto o inexistente."
+        403:
+          description: "Usuario con rol no permitido. Roles admitidos en este endpoint: admin"
+        404:
+          description: "No se encuentra el usuario (guest elegido)."
+        500:
+          description: "Error inesperado u ocurrió un error al obtener el clima consultando al cliente."
+    patch:
+      tags:
+        - meetup
+      summary: "Agrega el usuario logueado a una meetup."
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "header"
+          name: "authorization"
+          type: 'string'
+          description: "Token de sesión."
+        - in: "body"
+          name: "meetup"
+          schema:
+            $ref: "#/definitions/Meetup"
+          description: "Datos necesarios: id de la meetup."
+      responses:
+        200:
+          description: "La llamada fue resuelta correctamente."
+        401:
+          description: "Token incorrecto o inexistente."
+        403:
+          description: "Usuario con rol no permitido. Roles admitidos en este endpoint: admin, user"
+        404:
+          description: "No se encuentra la meetup seleccionada (id elegido)."
+  /meetup/beers:
+    get:
+      tags:
+        - meetup
+      summary: "Obtiene la cantidad de cajas de cervezas necesarias. Es una consulta que no crea una meetup."
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "header"
+          name: "authorization"
+          type: 'string'
+          description: "Token de sesión."
+        - in: "query"
+          name: "date"
+          type: 'string'
+          description: "La fecha en la que se quiere hacer la meetup (máximo 15 días en adelante). Formato de la fecha: yyyy-MM-dd HH:mm:ss. Ejemplo: 2020-12-10 22:00:11 "
+      responses:
+        200:
+          description: "La llamada fue resuelta correctamente."
+          schema:
+            $ref: "#/definitions/Meetup"
+        401:
+          description: "Token incorrecto o inexistente."
+        403:
+          description: "Usuario con rol no permitido. Roles admitidos en este endpoint: admin"
+        400:
+          description: "El formato de la fecha es incorrecto, la fecha es del pasado ó la fecha supera los 15 días. Formato de la fecha: yyyy-MM-dd HH:mm:ss. Ejemplo: 2020-12-10 22:00:11"
+        500:
+          description: "Error inesperado u ocurrió un error al obtener el clima consultando al cliente."
+  /meetup/checkin:
+    patch:
+      tags:
+        - meetup
+      summary: "Confirmación de que el usuario asistió a una meetup."
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "header"
+          name: "authorization"
+          type: 'string'
+          description: "Token de sesión."
+        - in: "body"
+          name: "meetup"
+          schema:
+            $ref: "#/definitions/Meetup"
+          description: "Datos necesarios: id de la meetup"
+      responses:
+        200:
+          description: "La llamada fue resuelta correctamente."
+        401:
+          description: "Token incorrecto o inexistente."
+        403:
+          description: "Usuario con rol no permitido. Roles admitidos en este endpoint: admin, user"
+        404:
+          description: "No se encuentra la meetup seleccionada (id elegido)."
+  /user:
+    get:
+      tags:
+        - user
+      summary: "Obtiene el listado de los usuarios."
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "header"
+          name: "authorization"
+          type: 'string'
+          description: "Token de sesión."
+      responses:
+        200:
+          description: "La llamada fue resuelta correctamente."
+          schema:
+            $ref: "#/definitions/User"
+        401:
+          description: "Token incorrecto o inexistente."
+        403:
+          description: "Usuario con rol no permitido. Roles admitidos en este endpoint: admin"
+    post:
+      tags:
+        - user
+      summary: "Crea un nuevo usuario."
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "header"
+          name: "authorization"
+          type: 'string'
+          description: "Token de sesión."
+        - in: "body"
+          name: "user"
+          schema:
+            $ref: "#/definitions/User"
+          description: "Datos necesarios: User, password y role. Roles admitidos: admin y user"
+      responses:
+        200:
+          description: "La llamada fue resuelta correctamente."
+        400:
+          description: "El rol no existe (roles admitidos admin o user). El usuario ingresado ya existe."
+        401:
+          description: "Token incorrecto o inexistente."
+        403:
+          description: "Usuario con rol no permitido. Roles admitidos en este endpoint: admin"
+  /user/login:
+    post:
+      tags:
+        - user
+      summary: "Inicia sesión y devuelve un token de sesión para usar en el resto de los endpoints."
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "user"
+          schema:
+            $ref: "#/definitions/User"
+          description: "Datos necesarios: User y password."
+      responses:
+        200:
+          description: "La llamada fue resuelta correctamente."
+          schema:
+            $ref: "#/definitions/Token"
+        403:
+          description: "usuario o contraseña incorrectos."
+  /weather:
+    get:
+      tags:
+        - weather
+      summary: "Devuelve la temperatura del día deseado."
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "header"
+          name: "authorization"
+          type: 'string'
+          description: "Token de sesión."
+        - in: "query"
+          name: "date"
+          type: 'string'
+          description: "La fecha que se quiere consultar (máximo 15 días en adelante). Formato de la fecha: yyyy-MM-dd HH:mm:ss. Ejemplo: 2020-12-10 22:00:11"
+      responses:
+        200:
+          description: "La llamada fue resuelta correctamente."
+          schema:
+            $ref: "#/definitions/Weather"
+        401:
+          description: "Token incorrecto o inexistente."
+        403:
+          description: "Usuario con rol no permitido. Roles admitidos en este endpoint: admin, user"
+        400:
+          description: "El formato de la fecha es incorrecto, la fecha es del pasado ó la fecha supera los 15 días. Formato de la fecha: yyyy-MM-dd HH:mm:ss. Ejemplo: 2020-12-10 22:00:11"
+        500:
+          description: "Error inesperado u ocurrió un error al obtener el clima consultando al cliente."
+definitions:
+  Meetup:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        description: "el id de la meetup"
+      boxes:
+        type: "integer"
+        description: "cantidad de cajas de cerveza para la meetup"
+      temperature:
+        type: "number"
+        description: "temperatura del día de la meetup"
+      description:
+        type: "string"
+        description: "descripción de la meetup"
+      date:
+        type: "string"
+        description: "fecha y hora de la meetup con formato yyyy-MM-dd HH:mm:ss (máximo 15 días en adelante)"
+      guestsAmount:
+        type: "integer"
+        description: "cantidad de invitados"
+      guests:
+        type: "array"
+        items:
+          $ref: "#/definitions/User"
+        description: "listado de invitados"
+  User:
+    type: "object"
+    properties:
+      username:
+        type: "string"
+        description: "nombre de usuario"
+      password:
+        type: "string"
+        description: "contraseña, no la devuelve nunca"
+      role:
+        type: "string"
+        description: "rol del usuario"
+      checkin:
+        type: "boolean"
+        description: "en el caso de pertenecer a la meetup devuelve si hizo checkin en la misma o no"
+  Token:
+    type: "object"
+    properties:
+      token:
+        type: "string"
+        description: "Token de sesión"
+  Weather:
+    type: "object"
+    properties:
+      weather:
+        type: "number"
+        description: "Temperatura."

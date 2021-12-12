@@ -1,0 +1,305 @@
+{
+	"info": {
+		"_postman_id": "2d295822-b989-4dec-b35c-a43eaca7cc4e",
+		"name": "meeting",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "simulate meetup by date",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "a6525afe-8dff-4813-aa28-77645e0388f8",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/meetup/beers?date=2020-12-13 22:00:11&guests=25",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"meetup",
+						"beers"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "2020-12-13 22:00:11"
+						},
+						{
+							"key": "guests",
+							"value": "25"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get users",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "a6525afe-8dff-4813-aa28-77645e0388f8",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"juan.padilla\",\r\n    \"password\":\"myPass123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "a6525afe-8dff-4813-aa28-77645e0388f8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"ayelen.baglietto\",\r\n    \"password\":\"password123\",\r\n    \"role\": \"admin\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get weather",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "a6525afe-8dff-4813-aa28-77645e0388f8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/weather?date=2020-12-13 22:22:22",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"weather"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "2020-12-13 22:22:22"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create meetup",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "a6525afe-8dff-4813-aa28-77645e0388f8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\":\"let's get some beers\",\r\n    \"date\":\"2020-12-14 22:00:11\",\r\n    \"guests\":[\r\n        {\"username\":\"juan.padilla\"},\r\n        {\"username\":\"rodrigo.muñoz\"},\r\n        {\"username\":\"santiago.sata\"},\r\n        {\"username\":\"romina.matias\"},\r\n        {\"username\":\"maria.perez\"},\r\n        {\"username\":\"lucia.vazquez\"},\r\n        {\"username\":\"celeste.cid\"},\r\n        {\"username\":\"lion.li\"},\r\n        {\"username\":\"griselda.morina\"}\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/meetup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"meetup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add me to meetup",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "f44f771f-64f4-475d-a65c-3f2ba51d59de",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":55\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/meetup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"meetup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "checkin",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "f44f771f-64f4-475d-a65c-3f2ba51d59de",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":55\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/meetup/checkin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"meetup",
+						"checkin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get meetups",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "a6525afe-8dff-4813-aa28-77645e0388f8",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/meetup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"meetup"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
