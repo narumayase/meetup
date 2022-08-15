@@ -21,15 +21,15 @@ Herramientas necesarias para la ejecución local del servicio:
 
 ### Instalación 🔧
 
-- Configurar usuario y contraseña de la base de datos en el archivo /src/resources/application.properties.
-- Ejecutar el archivo query.sql para crear la base de datos, las tablas y algunos usuarios de prueba. 
+- Configurar usuario y contraseña de la base de datos en el archivo [application.properties](https://github.com/narumayase/meetup/blob/main/src/main/resources).
+- Ejecutar el archivo [query.sql](https://github.com/narumayase/meetup/blob/main/query.sql) para crear la base de datos, las tablas y algunos usuarios de prueba. 
 - Ejecutar:
 ```
 $mvn spring-boot:run
 ```
 Esto compila e inicia el servicio localmente.
 
-Luego ya se puede empezar a usar la API. Es necesario iniciar sesión para poder usar los endpoints. Ante cualquier duda, la API está documentada en el archivo swagger.yaml. Igualmente en la última sección de este readme se encuentran los pasos para probar un camino feliz.
+Luego ya se puede empezar a usar la API. Es necesario iniciar sesión para poder usar los endpoints. Ante cualquier duda, la API está documentada en el archivo [Swagger](https://github.com/narumayase/meetup/blob/main/swagger.yaml). Igualmente en la última sección de este readme se encuentran los pasos para probar un camino feliz.
 
 ## Ejecución de pruebas unitarias 
 ```
