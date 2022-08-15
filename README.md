@@ -22,7 +22,7 @@ Tools needed to run the service locally:
 ### Installing 🔧
 
 - Set database's user and password in the file [application.properties](https://github.com/narumayase/meetup/blob/main/src/main/resources/application.properties).
-- Run the file query.sql to create the database, tables and some test users. 
+- Run the file [query.sql](https://github.com/narumayase/meetup/blob/main/query.sql) to create the database, tables and some test users. 
 - Run:
 ```
 $mvn spring-boot:run
