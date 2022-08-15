@@ -1,82 +1,69 @@
 # Meetups
 
-API Rest para crear meetups y calcular la cantidad de cajas de cerveza necesarias para aprovisionarlas.
+API REST to create meetups and calculate the number of beer boxes needed to supply them.
 
-## Construido con 🛠
+## Built on 🛠
 
-* [Springboot](https://start.spring.io/) - El framework usado para generar el proyecto base.
-* [Maven](https://maven.apache.org/) - Manejador de dependencias.
-* [Swagger.io](https://editor.swagger.io/) - Usado para documentar la API.
-* [Mysql](https://www.mysql.com/) - Motor de base de datos y herramientas para usarla.
+* [Springboot](https://start.spring.io/)
+* [Maven](https://maven.apache.org/)
+* [Swagger.io](https://editor.swagger.io/) 
+* [Mysql](https://www.mysql.com/)
 
-## Comenzando 🚀
+## Starting 🚀
 
-### Pre-requisitos 📋
+### Requirements 📋
 
-Herramientas necesarias para la ejecución local del servicio:
+Tools needed to run the service locally:
 
 - JDK 1.8+.
 - MySQL 5.6+.
 - Maven 3.2+.
 
-### Instalación 🔧
+### Installing 🔧
 
-- Configurar usuario y contraseña de la base de datos en el archivo /src/resources/application.properties.
-- Ejecutar el archivo query.sql para crear la base de datos, las tablas y algunos usuarios de prueba. 
-- Ejecutar:
+- Set database's user and password in the file /src/resources/application.properties.
+- Run the file query.sql to create the database, tables and some test users. 
+- Run:
 ```
 $mvn spring-boot:run
 ```
-Esto compila e inicia el servicio localmente.
+This will compile and start the service locally. 
 
-Luego ya se puede empezar a usar la API. Es necesario iniciar sesión para poder usar los endpoints. Ante cualquier duda, la API está documentada en el archivo swagger.yaml. Igualmente en la última sección de este readme se encuentran los pasos para probar un camino feliz.
+It is necessary to login to use the endpoints. Please check the docs on swagger.yaml or here.
 
-## Ejecución de pruebas unitarias 
+## Unit tests
 ```
 $mvn test
 ```
-Se testean los casos de uso principales solicitados en los requerimientos:
+The main use cases requested in the requirements are tested:
 
-- Consulta de clima.
-- Consulta de cantidad de cajas de cerveza por meetup.
-- Creación de meetup con personas invitadas.
-- Adhesión de un usuario a una meetup.
-- Checkin de un usuario a una meetup.
+- Get weather details.
+- Get number of beer boxex per meetup.
+- Create a meetup with guests.
+- Add an user to a meetup.
+- Checkin of an user to a meetup.
 
-## Esquema de roles 📋
-1) Los usuarios con rol "admin" pueden crear todo tipo de usuarios. 
-Usuario por defecto al iniciar la app:
-    - usuario: juan.padilla
-    - contraseña: myPass123
-3) Los usuarios con rol "user" no pueden crear usuarios. Las contraseñas por defecto de todos los usuarios autogenerados es "password123".
+## Role scheme 📋
+1) Users with roll "admin" can create all type of users.
+Default user when starting the app:
+    - user: juan.padilla
+    - pass: myPass123
+3) Users with role "user" can't create users. Default password of any generated user is "password123".
 
-## Roadmap (pendientes)
+## How to use
 
-Estas son todas las cosas que quedan en el backlog para mejoras futuras:
-
-- Terminar tests.
-- Notificaciones.
-- Usar otro método de hasheo que no sea MD5.
-- Securización con https.
-- Mejor manejo de errores y de excepciones.
-- Logging para monitoreo de la API.
-- Vencimiento de token de sesión y/o logout.
-- Dockerización.
-
-## Cómo usar la API
-
-Para ver en detalle los diferentes códigos de error que puede devolver el servicio en cada endpoint ver el archivo swagger.yaml.
+To see details of the status codes of each endpoint see swagger.yaml.
 
 ```
-200 - Llamada resuelta correctamente.
-400 - El formato de la fecha es incorrecto, la fecha es del pasado ó la fecha supera los 15 días. Formato de la fecha: yyyy-MM-dd HH:mm:ss. Ejemplo: 2020-12-10 22:00:11.
-401 - Token incorrecto o inexistente.
-403 - Usuario con rol no permitido. Usuario o contraseña incorrectos.
-404 - Meetup o usuario no encontrados.
-500 - Error inesperado u ocurrió un error al obtener el clima consultando al cliente.
+200 - Success.
+400 - Incorrect date format, past date or the date exceeds 15 days. Date format: yyyy-MM-dd HH:mm:ss. Example: 2020-12-10 22:00:11.
+401 - Unknown or wrong token.
+403 - User rol forbidden. wrong username or password.
+404 - Not found meetup or user.
+500 - Unexpected error or there was an error calling weather client.
 ```
 
-A continuación unos ejemplos de cómo ejecutar un flujo completo. 
+Here are some examples of how to run a full flow.
 
 1 - Login
 
@@ -95,10 +82,9 @@ response:
     "token": "f581127f-ea3c-445b-93e9-d97ab56b932f"
 }
 ```
-Este token es el que se utilizará en el resto de los endpoints para apersonarse como admin o user.
+This token is the one that will be used in the rest of the endpoints to appear as admin or user.
 
-2 - Consulta de clima de una fecha específica para saber cuántas cajas de cerveza comprar (esto no crea una meetup), esto solo lo pueden hacer usuarios con rol admin:
-
+2 - Weather query for a specific date to find out how many beer boxes to buy (this does not create a meetup), this can only be done by users with the admin role:
 ```
 GET http://localhost:8080/meetup/beers?date=2020-12-11 22:00:11&guests=25
 
@@ -114,9 +100,9 @@ response:
     "guestsAmount": 25
 }
 ```
-Devuelve la temperatura y la cantidad de cajas de cervezas para aprovisionar la meetup.
+Returns the temperature and the number of beer boxes to supply the meetup.
 
-3 - Consulta del clima de una fecha específica, esto lo puede hacer cualquier usuario:
+3 - Check the weather for a specific date, this can be done by any user:
 
 ```
 GET http://localhost:8080/weather?date=2020-12-13 22:22:22
@@ -131,7 +117,7 @@ response:
 }
 ```
 
-4 - Crear una meetup en una fecha específica con invitados específicos (usuarios). Esto lo pueden hacer usuarios con rol admin.
+4 - Create a meetup on a specific date with specific invitees (users). This can be done by users with the admin role.
 
 ```
 POST http://localhost:8080/meetup
@@ -161,7 +147,7 @@ response:
 200
 ```
 
-5 - Un usuario puede agregarse a una meetup, es necesario conocer el id de la meetup:
+5 - An user can be added to a meetup, it is necessary to know the id of the meetup:
 
 ```
 PATCH http://localhost:8080/meetup
@@ -178,7 +164,7 @@ response:
 200
 ```
 
-6 - Un usuario puede confirmar que asistió a una meetup, es necesario conocer el id de la meetup:
+6 - A user can confirm that he attended a meetup, it is necessary to know the id of the meetup:
 
 ```
 PATCH http://localhost:8080/meetup/checkin
@@ -195,7 +181,7 @@ response:
 200
 ```
 
-7 - Por último, se pueden consultar las meetups y los usuarios:
+7 - Finally, you can check the meetups and users:
 
 - meetups
 ```
