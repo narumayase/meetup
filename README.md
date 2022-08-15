@@ -21,7 +21,7 @@ Tools needed to run the service locally:
 
 ### Installing 🔧
 
-- Set database's user and password in the file /src/resources/application.properties.
+- Set database's user and password in the file [application.properties](https://github.com/narumayase/meetup/blob/main/src/main/resources/application.properties).
 - Run the file query.sql to create the database, tables and some test users. 
 - Run:
 ```
@@ -29,7 +29,7 @@ $mvn spring-boot:run
 ```
 This will compile and start the service locally. 
 
-It is necessary to login to use the endpoints. Please check the docs on swagger.yaml or here.
+It is necessary to login to use the endpoints. Please check the docs on [Swagger](https://github.com/narumayase/meetup/blob/main/swagger.yaml) or [here](https://github.com/narumayase/meetup/tree/main#how-to-use).
 
 ## Unit tests
 ```
