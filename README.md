@@ -1,6 +1,6 @@
 # Meetups
 
-API REST to create meetups and calculate the number of beer boxes needed to supply them.
+REST API to create meetups and calculate the number of beer boxes needed to supply them.
 
 ## Built on 🛠
 
