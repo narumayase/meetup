@@ -1,5 +1,7 @@
 # Meetups
 
+Made in 2020.
+
 REST API to create meetups and calculate the number of beer boxes needed to supply them.
 
 ## Built on 🛠
@@ -303,3 +305,4 @@ response:
         "role": "user"
     }
 ]
+
